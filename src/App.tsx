@@ -8,6 +8,7 @@ import { AdminProvider } from './contexts/AdminContext';
 import { ConfigProvider } from './contexts/ConfigContext';
 import AdminApp from './pages/admin/AdminApp';
 import { useConfig } from './contexts/ConfigContext';
+import { API_URL } from './config';
 
 
 function AppContent() {
@@ -17,6 +18,11 @@ function AppContent() {
   const location = useLocation();
   const navigate = useNavigate();
   const { homepageData } = useConfig();
+
+  // Track visit on mount
+  useEffect(() => {
+    fetch(`${API_URL}/api/analytics/track`, { method: 'POST' }).catch(err => console.error("Tracking failed:", err));
+  }, []);
 
   useEffect(() => {
     if (audioRef.current) {

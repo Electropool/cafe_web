@@ -7,12 +7,18 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "server": "node server/index.js",
+    "start": "node server/index.js"
   },
   "dependencies": {
     "@paper-design/shaders-react": "^0.0.76",
     "@subframe/core": "^1.154.0",
+    "better-sqlite3": "^12.9.0",
     "clsx": "^2.1.1",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
     "framer-motion": "^12.38.0",
     "js-yaml": "^4.1.1",
     "lucide-react": "^1.11.0",
@@ -23,6 +29,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^24.12.2",
     "@types/react": "^19.2.14",

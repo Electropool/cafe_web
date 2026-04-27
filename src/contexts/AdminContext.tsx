@@ -26,78 +26,114 @@ interface AdminContextType {
 const AdminContext = createContext<AdminContextType | undefined>(undefined);
 
 import { useConfig } from './ConfigContext';
+import { API_URL } from '../config';
 
 export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { menuData: initialMenuData } = useConfig();
-  
-  const [menuData, setMenuData] = useState<MenuCategoryData[]>(() => {
-    const saved = localStorage.getItem('cafe_menu_data');
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch (e) {
-        console.error("Failed to parse menu data", e);
-      }
-    }
-    // Transform MenuItem from ConfigContext to MenuItemData for AdminContext
-    // AdminContext uses images array directly, which is what ConfigContext provides
-    return initialMenuData as MenuCategoryData[];
-  });
+  const [menuData, setMenuData] = useState<MenuCategoryData[]>(initialMenuData as MenuCategoryData[]);
 
+  // Fetch from API on mount
   useEffect(() => {
-    localStorage.setItem('cafe_menu_data', JSON.stringify(menuData));
-  }, [menuData]);
+    fetch(`${API_URL}/api/menu`)
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.length > 0) {
+          setMenuData(data);
+        }
+      })
+      .catch(err => console.error("Failed to fetch menu from API:", err));
+  }, []);
 
-  const updateItem = (categoryName: string, updatedItem: MenuItemData) => {
-    setMenuData(prev => prev.map(cat => {
-      if (cat.category === categoryName) {
-        return {
-          ...cat,
-          items: cat.items.map(item => item.id === updatedItem.id ? updatedItem : item)
-        };
-      }
-      return cat;
-    }));
-  };
-
-  const deleteItem = (categoryName: string, itemId: string) => {
-    setMenuData(prev => prev.map(cat => {
-      if (cat.category === categoryName) {
-        return {
-          ...cat,
-          items: cat.items.filter(item => item.id !== itemId)
-        };
-      }
-      return cat;
-    }));
-  };
-
-  const addItem = (categoryName: string, newItem: MenuItemData) => {
-    setMenuData(prev => {
-      const catExists = prev.find(c => c.category === categoryName);
-      if (catExists) {
-        return prev.map(cat => {
+  const updateItem = async (categoryName: string, updatedItem: MenuItemData) => {
+    try {
+      const res = await fetch(`${API_URL}/api/menu/item`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ category: categoryName, item: updatedItem })
+      });
+      if (res.ok) {
+        setMenuData(prev => prev.map(cat => {
           if (cat.category === categoryName) {
-            return { ...cat, items: [...cat.items, newItem] };
+            return {
+              ...cat,
+              items: cat.items.map(item => item.id === updatedItem.id ? updatedItem : item)
+            };
           }
           return cat;
-        });
-      } else {
-        return [...prev, { category: categoryName, items: [newItem] }];
+        }));
       }
-    });
+    } catch (err) {
+      console.error("Failed to update item:", err);
+    }
   };
 
-  const toggleItemVisibility = (categoryName: string, itemId: string) => {
-    setMenuData(prev => prev.map(cat => {
-      if (cat.category === categoryName) {
-        return {
-          ...cat,
-          items: cat.items.map(item => item.id === itemId ? { ...item, show: !item.show } : item)
-        };
+  const deleteItem = async (categoryName: string, itemId: string) => {
+    try {
+      const res = await fetch(`${API_URL}/api/menu/item/${itemId}`, {
+        method: 'DELETE'
+      });
+      if (res.ok) {
+        setMenuData(prev => prev.map(cat => {
+          if (cat.category === categoryName) {
+            return {
+              ...cat,
+              items: cat.items.filter(item => item.id !== itemId)
+            };
+          }
+          return cat;
+        }));
       }
-      return cat;
-    }));
+    } catch (err) {
+      console.error("Failed to delete item:", err);
+    }
+  };
+
+  const addItem = async (categoryName: string, newItem: MenuItemData) => {
+    try {
+      const res = await fetch(`${API_URL}/api/menu/item`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ category: categoryName, item: newItem })
+      });
+      if (res.ok) {
+        setMenuData(prev => {
+          const catExists = prev.find(c => c.category === categoryName);
+          if (catExists) {
+            return prev.map(cat => {
+              if (cat.category === categoryName) {
+                return { ...cat, items: [...cat.items, newItem] };
+              }
+              return cat;
+            });
+          } else {
+            return [...prev, { category: categoryName, items: [newItem] }];
+          }
+        });
+      }
+    } catch (err) {
+      console.error("Failed to add item:", err);
+    }
+  };
+
+  const toggleItemVisibility = async (categoryName: string, itemId: string) => {
+    try {
+      const res = await fetch(`${API_URL}/api/menu/item/${itemId}/toggle`, {
+        method: 'POST'
+      });
+      if (res.ok) {
+        setMenuData(prev => prev.map(cat => {
+          if (cat.category === categoryName) {
+            return {
+              ...cat,
+              items: cat.items.map(item => item.id === itemId ? { ...item, show: !item.show } : item)
+            };
+          }
+          return cat;
+        }));
+      }
+    } catch (err) {
+      console.error("Failed to toggle visibility:", err);
+    }
   };
 
   return (

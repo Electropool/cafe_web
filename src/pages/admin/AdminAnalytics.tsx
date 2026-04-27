@@ -34,23 +34,23 @@ const generateMockData = () => {
   return data;
 };
 
+import { API_URL } from '../../config';
+
 const AdminAnalytics = () => {
-  const [analyticsData, setAnalyticsData] = React.useState<any[]>(() => {
-    const saved = localStorage.getItem('cafe_analytics_data');
-    if (saved) return JSON.parse(saved);
-    // On first load, it will be empty as per user request
-    return [];
-  });
+  const [analyticsData, setAnalyticsData] = React.useState<any[]>([]);
 
   const [isResetModalOpen, setIsResetModalOpen] = React.useState(false);
   const [resetUsername, setResetUsername] = React.useState('');
   const [resetPassword, setResetPassword] = React.useState('');
   const [resetError, setResetError] = React.useState('');
 
-  // Save to localStorage when updated
+  // Fetch from API on mount
   React.useEffect(() => {
-    localStorage.setItem('cafe_analytics_data', JSON.stringify(analyticsData));
-  }, [analyticsData]);
+    fetch(`${API_URL}/api/analytics`)
+      .then(res => res.json())
+      .then(data => setAnalyticsData(data))
+      .catch(err => console.error("Failed to fetch analytics:", err));
+  }, []);
 
   // Prepare data for Daily Visitors Chart
   const chartDataVisitors = useMemo(() => {
@@ -100,15 +100,22 @@ const AdminAnalytics = () => {
     URL.revokeObjectURL(url);
   };
 
-  const handleReset = (e: React.FormEvent) => {
+  const handleReset = async (e: React.FormEvent) => {
     e.preventDefault();
     if (resetUsername === 'xyz' && resetPassword === '1234567890') {
-      setAnalyticsData([]);
-      setIsResetModalOpen(false);
-      setResetUsername('');
-      setResetPassword('');
-      setResetError('');
-      alert("Analytics have been resetted.");
+      try {
+        const res = await fetch(`${API_URL}/api/analytics/reset`, { method: 'POST' });
+        if (res.ok) {
+          setAnalyticsData([]);
+          setIsResetModalOpen(false);
+          setResetUsername('');
+          setResetPassword('');
+          setResetError('');
+          alert("Analytics have been resetted.");
+        }
+      } catch (err) {
+        console.error("Reset error:", err);
+      }
     } else {
       setResetError("Invalid credentials. Reset failed.");
     }

@@ -142,11 +142,41 @@ Go to the Cloudflare Dashboard -> Access -> Tunnels and point your domain to the
 
 ---
 
-## 🛠️ Database Setup for Advanced Hosting
-If you decide to migrate from `localStorage` to a real database:
-1. **Backend**: Create a simple Express.js or Fastify server.
-2. **ORM**: Use Prisma or Drizzle for easy database management.
-3. **Storage**:
-   - **Local VPS**: Host SQLite or PostgreSQL.
-   - **Managed**: Use Supabase or MongoDB Atlas for cloud-based database systems.
-4. **Integration**: Update the `AdminContext` to fetch/post data to your backend API instead of `localStorage`.
+## 🛠️ Full-Stack Setup (Backend & Persistence)
+
+The application now features a Node.js/Express backend with SQLite to ensure data is synced across all devices and real analytics are tracked.
+
+### 1. Backend Configuration
+The backend runs on port `5000` by default. You can configure this in a `.env` file in the root directory:
+```env
+PORT=5000
+VITE_API_URL=http://your-vps-ip:5000
+```
+
+### 2. Running the Backend
+To start the backend server (manually):
+```bash
+npm run server
+```
+
+To run it in the background on your VPS (recommended):
+```bash
+# Using PM2
+sudo npm install -g pm2
+pm2 start server/index.js --name cafe-backend
+```
+
+### 3. Analytics & Tracking
+The system now automatically tracks:
+- **Daily Visitors**: Recorded every time a user lands on the site.
+- **Visitor Logs**: IP addresses and User Agents are logged in the database.
+- **Persistence**: Data is stored in `cafe.db` in the root folder, so it survives server restarts.
+
+### 4. Database Initialization
+On the first run, the backend will automatically populate the SQLite database (`cafe.db`) using your existing `src/config/menu.yaml`. After that, all changes made via the Admin Dashboard will be saved directly to the database.
+
+---
+
+## 🔒 Hosting on VPS with Cloudflare Tunnel (Recommended)
+
+... [rest of the README] ...
