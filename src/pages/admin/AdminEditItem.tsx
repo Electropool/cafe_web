@@ -10,7 +10,7 @@ const TYPES = ["veg", "non-veg", "egg"];
 const AdminEditItem = () => {
   const { category: urlCategory, id } = useParams<{ category?: string, id?: string }>();
   const navigate = useNavigate();
-  const { menuData, addItem, updateItem } = useAdmin();
+  const { menuData, addItem, updateItem, deleteItem } = useAdmin();
   
   const isEditing = Boolean(id);
 

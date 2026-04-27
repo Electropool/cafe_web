@@ -7,6 +7,8 @@ import { MenuContainer, MenuItem } from './components/ui/fluid-menu';
 import { AdminProvider } from './contexts/AdminContext';
 import { ConfigProvider } from './contexts/ConfigContext';
 import AdminApp from './pages/admin/AdminApp';
+import { useConfig } from './contexts/ConfigContext';
+
 
 function AppContent() {
   const [isAudioPlaying, setIsAudioPlaying] = useState(true);
