@@ -90,6 +90,48 @@ app.post('/api/menu/item/:id/toggle', (req, res) => {
   }
 });
 
+// Sync to YAML
+import fs from 'fs';
+import yaml from 'js-yaml';
+
+app.post('/api/sync-yaml', (req, res) => {
+  try {
+    const categories = db.prepare('SELECT * FROM menu_categories').all();
+    const data = categories.map(cat => {
+      const items = db.prepare('SELECT * FROM menu_items WHERE category_id = ?').all(cat.id);
+      return {
+        category: cat.name,
+        domain: cat.name.toLowerCase().replace(/[^a-z0-9]/g, '-'),
+        subdomain: 'default',
+        items: items.map(item => ({
+          id: item.id,
+          name: item.name,
+          slug: item.name.toLowerCase().replace(/[^a-z0-9]/g, '-'),
+          price: item.price,
+          type: item.type,
+          show: !!item.show,
+          image_count: JSON.parse(item.images || '[]').length,
+          images: JSON.parse(item.images || '[]')
+        }))
+      };
+    });
+
+    const yamlStr = yaml.dump(data, {
+      indent: 2,
+      lineWidth: -1, // don't wrap lines
+      noRefs: true,
+    });
+
+    const menuPath = path.join(__dirname, '../src/config/menu.yaml');
+    fs.writeFileSync(menuPath, yamlStr, 'utf8');
+
+    res.json({ success: true, message: "YAML updated successfully" });
+  } catch (err) {
+    console.error("Sync error:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // --- ANALYTICS API ---
 
 // Track a visit

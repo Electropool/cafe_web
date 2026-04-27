@@ -21,6 +21,7 @@ interface AdminContextType {
   deleteItem: (categoryName: string, itemId: string) => void;
   addItem: (categoryName: string, newItem: MenuItemData) => void;
   toggleItemVisibility: (categoryName: string, itemId: string) => void;
+  syncToYaml: () => Promise<boolean>;
 }
 
 const AdminContext = createContext<AdminContextType | undefined>(undefined);
@@ -136,8 +137,22 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   };
 
+  const syncToYaml = async () => {
+    try {
+      const res = await fetch(`${API_URL}/api/sync-yaml`, {
+        method: 'POST'
+      });
+      if (!res.ok) throw new Error('Sync failed');
+      const data = await res.json();
+      return data.success;
+    } catch (err) {
+      console.error("Failed to sync to YAML:", err);
+      return false;
+    }
+  };
+
   return (
-    <AdminContext.Provider value={{ menuData, setMenuData, updateItem, deleteItem, addItem, toggleItemVisibility }}>
+    <AdminContext.Provider value={{ menuData, setMenuData, updateItem, deleteItem, addItem, toggleItemVisibility, syncToYaml }}>
       {children}
     </AdminContext.Provider>
   );

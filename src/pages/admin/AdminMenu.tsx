@@ -4,7 +4,7 @@ import { useAdmin } from '../../contexts/AdminContext';
 import { Plus, Edit2, Trash2, Eye, EyeOff } from 'lucide-react';
 
 const AdminMenu = () => {
-  const { menuData, deleteItem, toggleItemVisibility } = useAdmin();
+  const { menuData, deleteItem, toggleItemVisibility, syncToYaml } = useAdmin();
   const navigate = useNavigate();
   const [deleteTarget, setDeleteTarget] = React.useState<{ category: string, id: string, name: string } | null>(null);
 
@@ -22,13 +22,26 @@ const AdminMenu = () => {
           <h1 className="text-2xl md:text-3xl font-serif font-bold text-white mb-2">Menu Management</h1>
           <p className="text-gray-400 text-sm">Manage your cafe's menu items, prices, and visibility.</p>
         </div>
-        <button 
-          onClick={() => navigate('/admin/menu/add')}
-          className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#D4A853] hover:bg-[#F5D547] text-black px-6 py-2.5 rounded-lg font-bold transition-all shadow-lg text-sm"
-        >
-          <Plus size={18} />
-          <span>Add Menu Item</span>
-        </button>
+        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+          <button 
+            onClick={async () => {
+              const success = await syncToYaml();
+              if (success) alert('Database synced to YAML successfully!');
+              else alert('Failed to sync to YAML. Check console.');
+            }}
+            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#10b3a3] hover:bg-[#15c5b5] text-white px-6 py-2.5 rounded-lg font-bold transition-all shadow-lg text-sm"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            <span>Update / Sync YAML</span>
+          </button>
+          <button 
+            onClick={() => navigate('/admin/menu/add')}
+            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#D4A853] hover:bg-[#F5D547] text-black px-6 py-2.5 rounded-lg font-bold transition-all shadow-lg text-sm"
+          >
+            <Plus size={18} />
+            <span>Add Menu Item</span>
+          </button>
+        </div>
       </div>
 
       <div className="space-y-6">
