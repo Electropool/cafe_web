@@ -2,6 +2,13 @@ import express from 'express';
 import cors from 'cors';
 import db, { initializeFromYaml } from './db.js';
 import dotenv from 'dotenv';
+import fs from 'fs';
+import yaml from 'js-yaml';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
@@ -91,8 +98,6 @@ app.post('/api/menu/item/:id/toggle', (req, res) => {
 });
 
 // Sync to YAML
-import fs from 'fs';
-import yaml from 'js-yaml';
 
 app.post('/api/sync-yaml', (req, res) => {
   try {
@@ -185,11 +190,6 @@ app.post('/api/analytics/reset', (req, res) => {
 });
 
 // --- FRONTEND SERVING ---
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // Serve static files from the React app build directory
 app.use(express.static(path.join(__dirname, '../dist')));
