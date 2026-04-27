@@ -1,0 +1,253 @@
+- category: "Hot Beverages"
+  domain: "beverage"
+  subdomain: "hot"
+  items:
+    - id: "hot-1"
+      name: "Tea"
+      slug: "tea"
+      price: "Half: ₹10 | Full: ₹15"
+      type: "veg"
+      show: true
+      image_count: 3
+    - id: "hot-2"
+      name: "Masala Tea"
+      slug: "masala-tea"
+      price: "Half: ₹15 | Full: ₹20"
+      type: "veg"
+      show: true
+      image_count: 3
+    - id: "hot-3"
+      name: "Black Tea"
+      slug: "black-tea"
+      price: "₹15"
+      type: "veg"
+      show: true
+      image_count: 4 # Note: current code has 0, 1, 3 (skip 2?)
+    - id: "hot-4"
+      name: "Coffee"
+      slug: "coffee"
+      price: "Short: ₹10 | Full: ₹20"
+      type: "veg"
+      show: true
+      image_count: 4
+    - id: "hot-5"
+      name: "Black Coffee"
+      slug: "black-coffee"
+      price: "₹20"
+      type: "veg"
+      show: true
+      image_count: 2
+    - id: "hot-6"
+      name: "Hot Chocolate"
+      slug: "hot-chocolate"
+      price: "₹60"
+      type: "veg"
+      show: true
+      image_count: 4
+
+- category: "Cold Beverages"
+  domain: "beverage"
+  subdomain: "cold"
+  items:
+    - id: "cold-1"
+      name: "Cold Coffee"
+      slug: "cold-coffee"
+      price: "₹80"
+      type: "veg"
+      show: true
+      image_count: 2
+    - id: "cold-2"
+      name: "Cold Coffee w/ Ice Cream"
+      slug: "cold-coffee-with-ice-cream"
+      price: "₹100"
+      type: "veg"
+      show: true
+      image_count: 3
+    - id: "cold-3"
+      name: "Lemonade"
+      slug: "lemonade"
+      price: "₹40"
+      type: "veg"
+      show: true
+      image_count: 2
+    - id: "cold-4"
+      name: "Sparkling Lemonade"
+      slug: "sparkling-lemonade"
+      price: "₹50"
+      type: "veg"
+      show: true
+      image_count: 2
+    - id: "cold-5"
+      name: "Coke"
+      slug: "coke"
+      price: "₹40"
+      type: "veg"
+      show: true
+      image_count: 1
+    - id: "cold-6"
+      name: "Sprite"
+      slug: "sprite"
+      price: "₹40"
+      type: "veg"
+      show: true
+      image_count: 1
+    - id: "cold-7"
+      name: "Fanta"
+      slug: "fanta"
+      price: "₹40"
+      type: "veg"
+      show: true
+      image_count: 1
+
+- category: "Mocktails"
+  domain: "beverage"
+  subdomain: "mocktail"
+  items:
+    - id: "mock-1"
+      name: "Virgin Mojito"
+      slug: "virgin-mojito"
+      price: "₹90"
+      type: "veg"
+      show: true
+      image_count: 1
+    - id: "mock-2"
+      name: "Blue Lagoon"
+      slug: "blue-lagoon"
+      price: "₹110"
+      type: "veg"
+      show: true
+      image_count: 1
+    - id: "mock-3"
+      name: "Green Apple Mojito"
+      slug: "green-apple-mojito"
+      price: "₹100"
+      type: "veg"
+      show: true
+      image_count: 1
+    - id: "mock-4"
+      name: "Mint Lemon Fizz"
+      slug: "mint-lemon-fizz"
+      price: "₹90"
+      type: "veg"
+      show: true
+      image_count: 1
+
+- category: "Veg Snacks"
+  domain: "food"
+  subdomain: "vegetarian-snacks"
+  items:
+    - id: "vsnack-1"
+      name: "French Fries"
+      slug: "french-fries"
+      price: "Half: ₹50 | Full: ₹70"
+      type: "veg"
+      show: true
+      image_count: 4
+    - id: "vsnack-2"
+      name: "Cheese Fries"
+      slug: "cheese-fries"
+      price: "₹90"
+      type: "veg"
+      show: true
+      image_count: 2
+    - id: "vsnack-3"
+      name: "Veg Sandwich"
+      slug: "vegetable-sandwich"
+      price: "Half: ₹60 | Full: ₹100"
+      type: "veg"
+      show: true
+      image_count: 4
+    - id: "vsnack-4"
+      name: "Paneer Sandwich"
+      slug: "paneer-sandwich"
+      price: "₹120"
+      type: "veg"
+      show: true
+      image_count: 2
+
+- category: "Non-Veg Snacks"
+  domain: "food"
+  subdomain: "non-vegetarian-snacks"
+  items:
+    - id: "nvsnack-1"
+      name: "Plain Omelette"
+      slug: "plain-omelette"
+      price: "₹40"
+      type: "egg"
+      show: true
+      image_count: 1
+    - id: "nvsnack-2"
+      name: "Double Omelette"
+      slug: "double-omelette"
+      price: "₹70"
+      type: "egg"
+      show: true
+      image_count: 1
+    - id: "nvsnack-3"
+      name: "Chicken Sandwich"
+      slug: "chicken-sandwich"
+      price: "₹140"
+      type: "non-veg"
+      show: true
+      image_count: 2
+    - id: "nvsnack-4"
+      name: "Chicken Nuggets"
+      slug: "chicken-nuggets"
+      price: "6pc: ₹140 | 10pc: ₹200"
+      type: "non-veg"
+      show: true
+      image_count: 2
+    - id: "nvsnack-5"
+      name: "Chicken Wrap"
+      slug: "chicken-wrap"
+      price: "₹150"
+      type: "non-veg"
+      show: true
+      image_count: 2
+
+- category: "Main Items"
+  domain: "food"
+  subdomain: "main"
+  items:
+    - id: "main-1"
+      name: "Veg Burger"
+      slug: "vegetable-burger"
+      price: "₹80"
+      type: "veg"
+      show: true
+      image_count: 1
+    - id: "main-2"
+      name: "Chicken Burger"
+      slug: "chicken-burger"
+      price: "₹120"
+      type: "non-veg"
+      show: true
+      image_count: 1
+    - id: "main-3"
+      name: "Farmhouse Pizza"
+      slug: "farmhouse-pizza"
+      price: "₹250"
+      type: "veg"
+      show: true
+      image_count: 1
+    - id: "main-4"
+      name: "Chicken Pizza"
+      slug: "chicken-pizza"
+      price: "₹300"
+      type: "non-veg"
+      show: true
+      image_count: 1
+    - id: "main-5"
+      name: "White Sauce Pasta"
+      slug: "white-sauce-pasta"
+      price: "₹180"
+      type: "veg"
+      show: true
+      image_count: 1
+    - id: "main-6"
+      name: "Red Sauce Pasta"
+      slug: "red-sauce-pasta"
+      price: "₹160"
+      type: "veg"
+      show: true
+      image_count: 3

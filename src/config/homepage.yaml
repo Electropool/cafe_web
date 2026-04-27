@@ -1,0 +1,80 @@
+hero:
+  title: "XYZ Café"
+  subtitle: "Where every cup feels like home."
+  logo: "/cafe_logo.png"
+  video: "/Hero_bg_vissuals/hero_bg_vissual_media_0.mp4"
+  links:
+    menu: "/menu"
+    about: "#about"
+
+about:
+  sections:
+    - id: 1
+      title: "Our Story"
+      description: "XYZ Café was founded in 2022 by Arpan Kar, with a vision to bring a modern yet homely café culture to Barasat. What started as a small idea — a comfortable place to sit, eat, and relax — quickly became a local favorite."
+      imageUrl: "/menu_media/menu__beverage__hot__coffee__2.jpg"
+      reverse: false
+    - id: 2
+      title: "The Ambiance"
+      description: "From the aroma of freshly brewed coffee to the comfort of your favorite corner seat, we've created a space where people can relax, connect, and enjoy moments that matter. Perfect for hangouts & dates."
+      imageUrl: "/menu_media/menu__food__main__farmhouse-pizza__0.jpg"
+      reverse: true
+    - id: 3
+      title: "Our Craft"
+      description: "We serve a carefully crafted menu of beverages, snacks, and meals that blend taste, quality, and affordability. Freshly brewed. Locally loved."
+      imageUrl: "/menu_media/menu__beverage__cold__cold-coffee-with-ice-cream__0.jpg"
+      reverse: false
+
+gallery:
+  title: "Our Vibe"
+  subtitle: "A glimpse into the heart of XYZ Café"
+  items:
+    - id: 1
+      type: "image"
+      title: "Fresh Brew"
+      desc: "Start your morning right"
+      url: "/menu_media/menu__beverage__hot__black-coffee__0.jpg"
+      span: "md:col-span-1 md:row-span-2 col-span-1 row-span-1"
+    - id: 2
+      type: "image"
+      title: "Margarita Magic"
+      desc: "Cheesy perfection"
+      url: "/menu_media/menu__food__main__margarita-pizza__0.jpg"
+      span: "md:col-span-2 md:row-span-2 col-span-1 row-span-1"
+    - id: 3
+      type: "image"
+      title: "Chilled Vibes"
+      desc: "Refreshing mocktails"
+      url: "/menu_media/menu__beverage__mocktail__blue-lagoon__0.jpg"
+      span: "md:col-span-1 md:row-span-2 col-span-2 row-span-1"
+    - id: 4
+      type: "image"
+      title: "Crispy Sides"
+      desc: "Golden fries"
+      url: "/menu_media/menu__food__vegetarian-snacks__french-fries__1.jpg"
+      span: "md:col-span-2 md:row-span-2 col-span-1 row-span-1"
+    - id: 5
+      type: "image"
+      title: "Hearty Sandwiches"
+      desc: "Made fresh to order"
+      url: "/menu_media/menu__food__vegetarian-snacks__paneer-sandwich__0.jpg"
+      span: "md:col-span-2 md:row-span-2 col-span-1 row-span-1"
+
+footer:
+  morphing_texts: ["XYZ Café", "Cold Drinks", "Warm Foods", "Music Jam", "Good Friends", "Great Times"]
+  logo: "/cafe_logo.png"
+  description: "Your cozy corner in the city where great food, warm vibes, and good conversations come together."
+  contact:
+    address: |
+      123 Green Park Lane
+      Near Barasat Station Road
+      Barasat, WB – 700124
+    hours: "9:00 AM – 10:30 PM (Daily)"
+    phone: "+91 9886 66886"
+    email: "example@example.com"
+  links:
+    map: "#"
+    phone: "#"
+    email: "#"
+  copyright_text: "XYZ Café. All rights reserved. Designed for modern café experience."
+  video: "/Hero_bg_vissuals/hero_bg_vissual_media_1.mp4"
