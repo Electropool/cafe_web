@@ -142,8 +142,12 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       const res = await fetch(`${API_URL}/api/sync-yaml`, {
         method: 'POST'
       });
-      if (!res.ok) throw new Error('Sync failed');
       const data = await res.json();
+      if (!res.ok) {
+        console.error("Sync error from server:", data.error);
+        alert(`Sync failed: ${data.error}`);
+        return false;
+      }
       return data.success;
     } catch (err) {
       console.error("Failed to sync to YAML:", err);

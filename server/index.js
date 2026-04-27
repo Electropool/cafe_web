@@ -133,7 +133,7 @@ app.post('/api/sync-yaml', (req, res) => {
     res.json({ success: true, message: "YAML updated successfully" });
   } catch (err) {
     console.error("Sync error:", err);
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ success: false, error: err.message });
   }
 });
 
